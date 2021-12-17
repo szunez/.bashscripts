@@ -20,7 +20,6 @@ function punch() {
         curTime=$SECONDS
         (( startTime = $curTime - $days ))
         lastTime=`echo $( tail -n $lines ~/time.log ) | cut -f1 -d','`
-        echo $lastTime
         task=()
         dur=()
         (( i = 0 ))
@@ -35,8 +34,6 @@ function punch() {
                 task[$i]=`echo $( tail -n $line ~/time.log ) | cut -f4 -d','`
                 dur[$i]=`echo $( tail -n $line ~/time.log ) | cut -f5 -d',' | cut -f1 -d' '`
             fi
-            (( dummy = $startTime - $lastTime ))
-            echo "$dummy $lastTime ${task[$i]} ${dur[$i]}"
             (( i++ ))
         done
         taskSummary=(`echo ${task[@]} | xargs -n1 | sort -u | xargs`)
