@@ -3,11 +3,13 @@ function punch() {
     (( SECONDS = $utcTime ))
     echo 'report @UTC='$SECONDS' | '`date +%H:%M:%S`
     if [ "$1" == "--in" ] || [ "$1" == "-i" ]; then
-        echo $SECONDS','`date +%Y.%m.%d-%H:%M`',in,'$2 >> ~/time.log
+        #echo $SECONDS',"'`date +%"Y-%m-%d %H:%M"`'",in,'$2 >> ~/time.log
+        sed -i "1s/^/$SECONDS,\"`date +%"Y-%m-%d %H:%M"`\",in,$2\n/" ~/time.log
     elif [ "$1" == "--out" ] || [ "$1" == "-o" ]; then
-        lastTime=`echo $( tail -n 1 ~/time.log ) | cut -f1 -d','`
+        lastTime=`echo $( head -n 1 ~/time.log ) | cut -f1 -d','`
         delaTime=`printf %.2f "$((10**3 * ($SECONDS-$lastTime)/3600))e-3"`
-        echo $SECONDS','`date +%Y.%m.%d-%H:%M`',out,'$2','$delaTime' hours,'>> ~/time.log
+        #echo $SECONDS',"'`date +%"Y-%m-%d %H:%M"`'",out,'$2','$delaTime' hours,'>> ~/time.log
+        sed -i "1s/^/$SECONDS,\"`date +%"Y-%m-%d %H:%M"`\",out,$2,$delaTime hours,\n/" ~/time.log
     elif [ "$1" == "--summary" ] || [ "$1" == "-s" ]; then
         lines=`wc -l ~/time.log | cut -f1 -d' '`
         if [ "$2" == "" ]; then
@@ -17,20 +19,25 @@ function punch() {
         fi
         curTime=$SECONDS
         (( startTime = $curTime - $days ))
-        lastTime=`echo $( tail -n 1 ~/time.log ) | cut -f1 -d','`
+        lastTime=`echo $( tail -n $lines ~/time.log ) | cut -f1 -d','`
+        echo $lastTime
         task=()
         dur=()
-        (( i = 1 ))
-        until [ "$startTime" -gt "$lastTime" ]; do
+        (( i = 0 ))
+        until [ "$startTime" -gt "$lastTime" ]; do            
+            (( line = $lines - $i + 1 ))
+            (( nextLine = $line - 1 ))       
+            lastTime=`echo $( tail -n $nextLine ~/time.log ) | cut -f1 -d','`
             if [ "$i" -gt "$lines" ]; then
                 break
             fi
-            if [ "`echo $( tail -n $i ~/time.log ) | cut -f3 -d','`" == "out" ]; then
-                task[$i-1]=`echo $( tail -n $i ~/time.log ) | cut -f4 -d','`
-                dur[$i-1]=`echo $( tail -n $i ~/time.log ) | cut -f5 -d',' | cut -f1 -d' '`
+            if [ "`echo $( tail -n $line ~/time.log ) | cut -f3 -d','`" == "out" ]; then
+                task[$i]=`echo $( tail -n $line ~/time.log ) | cut -f4 -d','`
+                dur[$i]=`echo $( tail -n $line ~/time.log ) | cut -f5 -d',' | cut -f1 -d' '`
             fi
+            (( dummy = $startTime - $lastTime ))
+            echo "$dummy $lastTime ${task[$i]} ${dur[$i]}"
             (( i++ ))
-            lastTime=`echo $( tail -n $i ~/time.log ) | cut -f1 -d','`
         done
         taskSummary=(`echo ${task[@]} | xargs -n1 | sort -u | xargs`)
         durSummary=()
