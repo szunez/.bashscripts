@@ -1,15 +1,25 @@
 function punch() {
     utcTime=`date +%s`
-    (( SECONDS = $utcTime ))
-    echo 'report @UTC='$SECONDS' | '`date +%H:%M:%S`
+    (( intTime = $utcTime ))
+    echo 'report @UTC='$utcTime' | '`date +%H:%M:%S`
     if [ "$1" == "--in" ] || [ "$1" == "-i" ]; then
-        #echo $SECONDS',"'`date +%"Y-%m-%d %H:%M"`'",in,'$2 >> ~/time.log
-        sed -i "1s/^/$SECONDS,\"`date +%"Y-%m-%d %H:%M"`\",in,$2\n/" ~/time.log
+        if [ "$2" != "" ]; then
+            sed -i "1s/^/`date +%"s" -d"$2"`,\"`date +%"Y-%m-%d %H:%M" -d"$2"`\",in,$3\n/" ~/time.log
+        else
+            sed -i "1s/^/$intTime,\"`date +%"Y-%m-%d %H:%M"`\",in,$2\n/" ~/time.log
+        fi
+        #echo $SECONDS',"'`date +%"Y-%m-%d %H:%M"`'",in,'$2 >> ~/time.log    
     elif [ "$1" == "--out" ] || [ "$1" == "-o" ]; then
         lastTime=`echo $( head -n 1 ~/time.log ) | cut -f1 -d','`
-        delaTime=`printf %.2f "$((10**3 * ($SECONDS-$lastTime)/3600))e-3"`
-        #echo $SECONDS',"'`date +%"Y-%m-%d %H:%M"`'",out,'$2','$delaTime' hours,'>> ~/time.log
-        sed -i "1s/^/$SECONDS,\"`date +%"Y-%m-%d %H:%M"`\",out,$2,$delaTime hours,\n/" ~/time.log
+        if [ "$3" != "" ]; then
+            (( setTime = `date +%s -d"$3"` ))
+            delaTime=`printf %.2f "$((10**3 * ($setTime-$lastTime)/3600))e-3"`
+            sed -i "1s/^/$setTime,\"`date +%"Y-%m-%d %H:%M" -d"$3"`\",out,$2,$delaTime hours,\n/" ~/time.log
+        else
+            delaTime=`printf %.2f "$((10**3 * ($intTime-$lastTime)/3600))e-3"`
+            #echo $SECONDS',"'`date +%"Y-%m-%d %H:%M"`'",out,'$2','$delaTime' hours,'>> ~/time.log
+            sed -i "1s/^/$intTime,\"`date +%"Y-%m-%d %H:%M"`\",out,$2,$delaTime hours,\n/" ~/time.log
+        fi
     elif [ "$1" == "--summary" ] || [ "$1" == "-s" ]; then
         lines=`wc -l ~/time.log | cut -f1 -d' '`
         if [ "$2" == "" ]; then
@@ -17,7 +27,7 @@ function punch() {
         else
             (( days = $2*86400 ))
         fi
-        curTime=$SECONDS
+        curTime=$intTime
         (( startTime = $curTime - $days ))
         lastTime=`echo $( tail -n $lines ~/time.log ) | cut -f1 -d','`
         task=()
