@@ -37,6 +37,8 @@ function cal() {
     fi
     (( mm0 = $idx_m + 1 ))
     dend+=( `date +%u -d"$yyyy0-$mm0-01"` )
+    #Su Mo Tu We Th Fr Sa
+    # 7  1  2  3  4  5  6
     (( mm1 = $mm0 + 1))
     if (( $mm1 > 12 )); then
         (( mm1 = 1 ))
@@ -73,16 +75,34 @@ function cal() {
         else
             echo -e "$line0\033[0m"
         fi  
-    elif (( ${dend[0]} == 6 )); then
+    elif (( ${dend[0]} == 5 )); then
         line0='               01 02'
         echo -e "$line0\033[0m"
         (( d = 0 ))
         (( dprint = 2 ))
-    elif (( ${dend[0]} == 7 )); then
+    elif (( ${dend[0]} == 6 )); then
         line0='                  01'
         echo -e "$line0\033[0m"
         (( d = 0 ))
         (( dprint = 1 ))
+    elif (( ${dend[0]} == 7 )); then
+        if [ `date +%d` == "01" ] && (( `date +%m` == $mm0 )) && (( `date +%Y` == $yyyy0 )); then
+            colour=$highlight
+        else
+            colour='\033[0m'
+        fi
+        line0=$colour'01'
+        for (( dd=2; dd<=7; dd++ ))
+            do
+                (( dprint = dd ))
+                if [ `date +%d` == "$dprint" ]; then
+                    colour=$highlight
+                else
+                    colour='\033[0m'
+                fi
+                line0=$line0$colour' 0'$dprint
+        done
+        echo -e "$line0\033[0m"
     else
         (( d = 0 ))
     fi
