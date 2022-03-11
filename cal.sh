@@ -48,8 +48,9 @@ function cal() {
     lastday=`printf %.0f "$((10**3 * $lastdays/86400))e-3"`
     padding0='          '
     padding1='                    '
-    printf "\n%s%s%s\n" "${padding0:${#month[idx_m]}} ${month[idx_m]} `date +%Y`"
-    echo 'Su Mo Tu We Th Fi Sa'
+    colour='\033[0;31m'
+    echo -e "\n${padding0:${#month[idx_m]}} \033[0;32m${month[idx_m]} `date +%Y -d"$yyyy0-01-01"`"
+    echo -e "\033[0;35mSu Mo Tu We Th Fi Sa\033[0m"
     line0=''
     if (( ${dend[0]} >= 1 )) && (( ${dend[0]} < 6 )); then
         for (( d=1; d<=${dend[0]}; d++ ))
@@ -62,7 +63,11 @@ function cal() {
                 (( dprint = dd - $d + 1 ))
                 line0=$line0' 0'$dprint
         done
-        echo "$line0"
+        if [ `date +%d` == "01" ]; then
+            echo -e "\033[1;33m$line0"'01\003[0m'
+        else
+            echo "$line0"
+        fi  
     elif (( ${dend[0]} == 6 )); then
         line0='               01 02'
         echo "$line0"
