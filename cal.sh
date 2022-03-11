@@ -93,7 +93,7 @@ function cal() {
     for (( dd=$dprint+1; dd<=${dend[1]}; dd++ ))
         do
             (( dprint++ ))
-            if [ `date +%d` == "$dprint" ]; then
+            if [ `date +%d` == "$dprint" ] && (( `date +%m` == $mm0 )) && (( `date +%Y` == $yyyy0 )); then
                 colour=$highlight
             else
                 colour='\033[0m'
@@ -116,7 +116,7 @@ function cal() {
     for (( dd=$dprint+1; dd<=${dend[2]}; dd++ ))
         do
             (( dprint++ ))
-            if [ `date +%d` == "$dprint" ]; then
+            if [ `date +%d` == "$dprint" ] && (( `date +%m` == $mm0 )) && (( `date +%Y` == $yyyy0 )); then
                 colour=$highlight
             else
                 colour='\033[0m'
@@ -138,7 +138,7 @@ function cal() {
     for (( dd=$dprint+1; dd<=${dend[3]}; dd++ ))
         do
             (( dprint++ ))
-            if [ `date +%d` == "$dprint" ]; then
+            if [ `date +%d` == "$dprint" ] && (( `date +%m` == $mm0 )) && (( `date +%Y` == $yyyy0 )); then
                 colour=$highlight
             else
                 colour='\033[0m'
@@ -156,7 +156,7 @@ function cal() {
     for (( dd=$dprint+1; dd<=${dend[4]}; dd++ ))
         do
             (( dprint++ ))
-            if [ `date +%d` == "$dprint" ]; then
+            if [ `date +%d` == "$dprint" ] && (( `date +%m` == $mm0 )) && (( `date +%Y` == $yyyy0 )); then
                 colour=$highlight
             else
                 colour='\033[0m'
@@ -174,7 +174,7 @@ function cal() {
         for (( dd=$dprint+1; dd<=${dend[5]}; dd++ ))
             do
                 (( dprint++ ))
-                if [ `date +%d` == "$dprint" ]; then
+                if [ `date +%d` == "$dprint" ] && (( `date +%m` == $mm0 )) && (( `date +%Y` == $yyyy0 )); then
                     colour=$highlight
                 else
                     colour='\033[0m'
