@@ -48,7 +48,7 @@ function cal() {
     lastday=`printf %.0f "$((10**3 * $lastdays/86400))e-3"`
     padding0='          '
     padding1='                    '
-    colour='\033[0;31m'
+    highlight='\033[1;33m'
     echo -e "\n${padding0:${#month[idx_m]}} \033[0;32m${month[idx_m]} `date +%Y -d"$yyyy0-01-01"`"
     echo -e "\033[0;35mSu Mo Tu We Th Fi Sa\033[0m"
     line0=''
@@ -61,21 +61,26 @@ function cal() {
         for (( dd=$d + 1; dd<=7; dd++ ))
             do
                 (( dprint = dd - $d + 1 ))
-                line0=$line0' 0'$dprint
+                if [ `date +%d` == "$dprint" ]; then
+                    colour=$highlight
+                else
+                    colour='\033[0m'
+                fi
+                line0=$line0$colour' 0'$dprint
         done
         if [ `date +%d` == "01" ]; then
-            echo -e "\033[1;33m$line0"'01\003[0m'
+            echo -e "$highlight$line0"'01\033[0m'
         else
-            echo "$line0"
+            echo -e "$line0\033[0m"
         fi  
     elif (( ${dend[0]} == 6 )); then
         line0='               01 02'
-        echo "$line0"
+        echo -e "$line0\033[0m"
         (( d = 0 ))
         (( dprint = 2 ))
     elif (( ${dend[0]} == 7 )); then
         line0='                  01'
-        echo "$line0"
+        echo -e "$line0\033[0m"
         (( d = 0 ))
         (( dprint = 1 ))
     else
@@ -88,13 +93,18 @@ function cal() {
     for (( dd=$dprint+1; dd<=${dend[1]}; dd++ ))
         do
             (( dprint++ ))
-            if (( $dprint < 10 )); then
-                line1=$line1' 0'$dprint
+            if [ `date +%d` == "$dprint" ]; then
+                colour=$highlight
             else
-                line1=$line1' '$dprint
+                colour='\033[0m'
+            fi
+            if (( $dprint < 10 )); then
+                line1=$line1$colour' 0'$dprint
+            else
+                line1=$line1$colour' '$dprint
             fi
     done
-    echo "$line1"
+    echo -e "$line1\033[0m"
     (( dprint++ ))
     dend+=( $(($dprint + 6)) )
     if (( $dprint < 10 )); then
@@ -106,13 +116,18 @@ function cal() {
     for (( dd=$dprint+1; dd<=${dend[2]}; dd++ ))
         do
             (( dprint++ ))
-            if (( $dprint < 10 )); then
-                line2=$line2' 0'$dprint
+            if [ `date +%d` == "$dprint" ]; then
+                colour=$highlight
             else
-                line2=$line2' '$dprint
+                colour='\033[0m'
+            fi
+            if (( $dprint < 10 )); then
+                line2=$line2$colour' 0'$dprint
+            else
+                line2=$line2$colour' '$dprint
             fi
     done
-    echo "$line2"
+    echo -e "$line2\033[0m"
     (( dprint++ ))
     dend+=( $(( $dprint + 6 )) )
     if (( ${dend[3]} > $lastday )); then
@@ -123,9 +138,14 @@ function cal() {
     for (( dd=$dprint+1; dd<=${dend[3]}; dd++ ))
         do
             (( dprint++ ))
-            line3=$line3' '$dprint
+            if [ `date +%d` == "$dprint" ]; then
+                colour=$highlight
+            else
+                colour='\033[0m'
+            fi
+            line3=$line3' '$colour$dprint
     done
-    echo "$line3"
+    echo -e "$line3\033[0m"
     (( dprint++ ))
     dend+=( $(( $dprint + 6 )) )
     if (( ${dend[4]} > $lastday )); then
@@ -136,9 +156,14 @@ function cal() {
     for (( dd=$dprint+1; dd<=${dend[4]}; dd++ ))
         do
             (( dprint++ ))
-            line4=$line4' '$dprint
+            if [ `date +%d` == "$dprint" ]; then
+                colour=$highlight
+            else
+                colour='\033[0m'
+            fi
+            line4=$line4' '$colour$dprint
     done
-    echo "$line4"
+    echo -e "$line4\033[0m"
     (( dprint++ ))
     dend+=( $(( $dprint + 6 )) )
     if (( ${dend[5]} > $lastday )); then
@@ -149,8 +174,13 @@ function cal() {
         for (( dd=$dprint+1; dd<=${dend[5]}; dd++ ))
             do
                 (( dprint++ ))
-                line5=$line5' '$dprint
+                if [ `date +%d` == "$dprint" ]; then
+                    colour=$highlight
+                else
+                    colour='\033[0m'
+                fi
+            line5=$line5' '$colour$dprint
         done
-        echo "$line5"
+        echo -e "$line5\033[0m"
     fi
 }
