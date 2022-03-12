@@ -80,7 +80,6 @@ function cal() {
         (( p++ ))
     done
     padding0='          '
-    highlight='\033[1;33m'
     echo -e "\n${padding0:${#month[mm]}} \033[0;32m${month[mm]} `date +%Y -d"$yyyy0-01-01"`"
     echo -e "\033[0;35mSu Mo Tu We Th Fi Sa\033[0m"
     echo -e "$calendar"
