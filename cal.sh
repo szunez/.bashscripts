@@ -1,4 +1,4 @@
-function cal2() {
+function cal() {
     highlight='\033[1;33m'
     month=("January" "February" "March" "April" "May" "June" "July" "August" "September" "October" "November" "December")
     (( mm = 0))
