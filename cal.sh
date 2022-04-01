@@ -62,7 +62,7 @@ function cal() {
                 calendar=$calendar'   '
             else
                 (( d++ ))
-                if [ `date +%d` == $d ] && (( `date +%m` == $mm0 )) && (( `date +%Y` == $yyyy0 )); then
+                if (( `date +%d` == $d )) && (( `date +%m` == $mm0 )) && (( `date +%Y` == $yyyy0 )); then
                     colour=$highlight
                 else
                     colour='\033[0m'
