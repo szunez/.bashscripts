@@ -11,6 +11,7 @@ function new() {
     elif [ "$1" == "--meeting" ]; then
         cd "$funnelDir"/meetings;
         > `date +%Y%m%d`'-'$2'-notes.txt';
+        getNotesTemplate $2 ./`date +%Y%m%d`'-'$2'-notes.txt'
         code ./`date +%Y%m%d`'-'$2'-notes.txt'
         explorer .;
     elif [ "$1" == "--sale" ]; then
@@ -38,4 +39,7 @@ function new() {
     else
         echo 'Please specify a --demo, --license, --sale, --earlysale, --client, --meeting, etc.'
     fi
+}
+function getNotesTemplate() {
+    printf "%s %s\n%s\n%s\n%s\n%s" `date +%Y%m%d` $1 "    attendees" "    topics" "    questions" "    actionItems" >> $2
 }
