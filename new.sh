@@ -41,5 +41,5 @@ function new() {
     fi
 }
 function getNotesTemplate() {
-    printf "%s %s\n%s\n%s\n%s\n%s" `date +%Y%m%d` $1 "    attendees" "    topics" "    questions" "    actionItems" >> $2
+    printf "%s %s\n%s\n        \n%s\n        \n%s\n        \n%s\n        " `date +%Y%m%d` $1 "    attendees" "    topics" "    questions" "    actionItems" >> $2
 }
