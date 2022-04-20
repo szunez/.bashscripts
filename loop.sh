@@ -1,6 +1,7 @@
 function loop (){
     out=''
-    if ! [[ "$1" =~ "^[0-9]+([.][0-9]+)?$" ]]; then
+    re='^[0-9]+$'
+    if ! [[ $1 =~ $re ]]; then
         n=$2
         text=$1
     else
@@ -12,4 +13,5 @@ function loop (){
         out=$out$text
     done
     `echo $out | clip.exe`
+    echo $out" has been copied to the clipboard"
 }
