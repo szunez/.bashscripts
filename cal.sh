@@ -62,15 +62,15 @@ function cal() {
                 calendar=$calendar'   '
             else
                 (( d++ ))
-                if (( `date +%d` == $d )) && (( `date +%m` == $mm0 )) && (( `date +%Y` == $yyyy0 )); then
-                    colour=$highlight
-                else
-                    colour='\033[0m'
-                fi
                 if (( $d <= 9 )); then
                     dd='0'$d' '
                 else
                     dd=$d' '
+                fi
+                if [ `date +%d` == $dd ] && (( `date +%m` == $mm0 )) && (( `date +%Y` == $yyyy0 )); then
+                    colour=$highlight
+                else
+                    colour='\033[0m'
                 fi
                 if (( $p == 6 )); then
                     dd=$dd'\n'
