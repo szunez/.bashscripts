@@ -18,7 +18,7 @@ function new() {
         gosales
         nproject=`getNumber`
         project=$nproject' '$2
-        mkdir "$project"
+        mkdir "$project - flotools"
         if [ "$4" != "" ]; then
             UU=$4
         elif [ "$3" != "" ] && [ "${UU+xxx}" == "xxx" ]; then
@@ -27,9 +27,9 @@ function new() {
             UU=1
         fi
         if [ "$3" == "--concurrent" ]; then
-            cp "$salesKitDir"/flotools/"000NNN-0 CCCC - flotools UU perpetual concurrent license.docx" ./"$project"/"$nproject-0 $2 - flotools $UU perpetual concurrent license.docx"
+            cp "$salesKitDir"/flotools/CCCC-template/"000NNN-0 CCCC - flotools UU perpetual concurrent license.docx" ./"$project"\ -\ flotools/"$nproject-0 $2 - flotools $UU perpetual concurrent license.docx"
         else
-            cp "$salesKitDir"/flotools/"000NNN-0 CCCC - flotools UU perpetual named license.docx" ./"$project"/"$nproject-0 $2 - flotools $UU perpetual named license.docx"
+            cp "$salesKitDir"/flotools/CCCC-template//"000NNN-0 CCCC - flotools UU perpetual named license.docx" ./"$project"\ -\ flotools/"$nproject-0 $2 - flotools $UU perpetual named license.docx"
         fi
     elif [ "$1" == "--earlysale" ]; then
         gosales
