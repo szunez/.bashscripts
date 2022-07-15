@@ -4,7 +4,12 @@ function punch() {
     echo 'report @UTC='$utcTime' | '`date +%H:%M:%S`
     if [ "$1" == "--in" ] || [ "$1" == "-i" ]; then
         if [ "$2" != "" ]; then
-            sed -i "1s/^/`date +%"s" -d"$2"`,\"`date +%"Y-%m-%d %H:%M" -d"$2"`\",in,$3\n/" ~/time.log
+            if (( ${#2} < 16 )); then
+                altTime=`date  +%"Y-%m-%d"`' '$2
+                sed -i "1s/^/`date +%"s" -d"$altTime"`,\"`date +%"Y-%m-%d %H:%M" -d"$altTime"`\",in,$3\n/" ~/time.log
+            else
+                sed -i "1s/^/`date +%"s" -d"$2"`,\"`date +%"Y-%m-%d %H:%M" -d"$2"`\",in,$3\n/" ~/time.log
+            fi
         else
             sed -i "1s/^/$intTime,\"`date +%"Y-%m-%d %H:%M"`\",in,$2\n/" ~/time.log
         fi
@@ -12,9 +17,14 @@ function punch() {
     elif [ "$1" == "--out" ] || [ "$1" == "-o" ]; then
         lastTime=`echo $( head -n 1 ~/time.log ) | cut -f1 -d','`
         if [ "$3" != "" ]; then
-            (( setTime = `date +%s -d"$3"` ))
+            if (( ${#2} < 16 )); then
+                altTime=`date  +%"Y-%m-%d"`' '$3
+            else
+                altTime=$3
+            fi
+            (( setTime = `date +%s -d"$altTime"` ))
             delaTime=`printf %.2f "$((10**3 * ($setTime-$lastTime)/3600))e-3"`
-            sed -i "1s/^/$setTime,\"`date +%"Y-%m-%d %H:%M" -d"$3"`\",out,$2,$delaTime hours,\n/" ~/time.log
+            sed -i "1s/^/$setTime,\"`date +%"Y-%m-%d %H:%M" -d"$altTime"`\",out,$2,$delaTime hours,\n/" ~/time.log
         else
             delaTime=`printf %.2f "$((10**3 * ($intTime-$lastTime)/3600))e-3"`
             #echo $SECONDS',"'`date +%"Y-%m-%d %H:%M"`'",out,'$2','$delaTime' hours,'>> ~/time.log
