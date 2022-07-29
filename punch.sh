@@ -14,7 +14,6 @@ function punch() {
             sed -i "1s/^/$intTime,\"`date +%"Y-%m-%d %H:%M"`\",in,$2\n/" ~/time.log
         fi
         #echo $SECONDS',"'`date +%"Y-%m-%d %H:%M"`'",in,'$2 >> ~/time.log
-        # punch -o_1 task_2 time_3  
     elif [ "$1" == "--out" ] || [ "$1" == "-o" ]; then
         lastTime=`echo $( head -n 1 ~/time.log ) | cut -f1 -d','`
         if [ "$3" != "" ]; then
