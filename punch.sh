@@ -13,11 +13,12 @@ function punch() {
         else
             sed -i "1s/^/$intTime,\"`date +%"Y-%m-%d %H:%M"`\",in,$2\n/" ~/time.log
         fi
-        #echo $SECONDS',"'`date +%"Y-%m-%d %H:%M"`'",in,'$2 >> ~/time.log    
+        #echo $SECONDS',"'`date +%"Y-%m-%d %H:%M"`'",in,'$2 >> ~/time.log
+        # punch -o_1 task_2 time_3  
     elif [ "$1" == "--out" ] || [ "$1" == "-o" ]; then
         lastTime=`echo $( head -n 1 ~/time.log ) | cut -f1 -d','`
         if [ "$3" != "" ]; then
-            if (( ${#2} < 16 )); then
+            if (( ${#3} < 16 )); then
                 altTime=`date  +%"Y-%m-%d"`' '$3
             else
                 altTime=$3
