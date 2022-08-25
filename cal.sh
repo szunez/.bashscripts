@@ -7,19 +7,19 @@ function cal() {
     if [ "$2" == "" ]; then
         if [ "$1" == "" ]; then
             yyyy0=`date +%Y`
-            (( mm = `date +%m` - 1 ))
+            (( mm = `date +%-m` - 1 ))
         elif (( $1 <= 12 )); then
             yyyy0=`date +%Y`
             (( mm = $1 - 1 ))
         elif (( $1 > 12 )) && (( ${#1} == 4 )); then
             yyyy0=$1
-            (( mm = `date +%m` - 1 ))
+            (( mm = `date +%-m` - 1 ))
         elif (( $1 > 12 )) && (( ${#1} < 4 )); then
             (( yyyy0 = 2000 + $1 ))
-            (( mm = `date +%m` - 1 ))
+            (( mm = `date +%-m` - 1 ))
         else
             yyyy0=`date +%Y -d"$1"`
-            (( mm = `date +%m -d"$1"` - 1 ))
+            (( mm = `date +%-m -d"$1"` - 1 ))
         fi
     else
         if (( $2 > 12 )) && (( ${#2} == 4 )); then
@@ -67,7 +67,7 @@ function cal() {
                 else
                     dd=$d' '
                 fi
-                if [ `date +%d` == $dd ] && (( `date +%m` == $mm0 )) && (( `date +%Y` == $yyyy0 )); then
+                if [ `date +%-d` == $dd ] && (( `date +%-m` == $mm0 )) && (( `date +%Y` == $yyyy0 )); then
                     colour=$highlight
                 else
                     colour='\033[0m'
