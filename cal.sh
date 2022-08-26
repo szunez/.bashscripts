@@ -44,11 +44,23 @@ function cal() {
     fi
     (( age = $yyyy0 - $yyyy_bd))
     if (( ${age[@]:(( ${#age} - 1)):1} == 1 )); then
-        ord='st'
+        if  (( $age < 4)) || (( $age > 20 )); then
+            ord='st'
+        else
+            ord='th'
+        fi
     elif (( ${age[@]:(( ${#age} - 1)):1} == 2 )); then
-        ord='nd'
+        if  (( $age < 4)) || (( $age > 20 )); then
+            ord='nd'
+        else
+            ord='th'
+        fi
     elif (( ${age[@]:(( ${#age} - 1)):1} == 3 )); then
-        ord='rd'
+        if  (( $age < 4)) || (( $age > 20 )); then
+            ord='rd'
+        else
+            ord='th'
+        fi
     else
         ord='th'
     fi
