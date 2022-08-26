@@ -1,7 +1,7 @@
 function cal() {
+    birthday="1978-02-27" #configuration input your birthday here
     highlight='\033[1;33m'
     celebrate='\033[1;36m'
-    birthday="1978-02-27"
     yyyy_bd=`date +%Y -d"$birthday"`
     mm_bd=`date +%-m -d"$birthday"`
     dd_bd=`date +%-d -d"$birthday"`
