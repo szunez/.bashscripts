@@ -1,8 +1,14 @@
 function cal() {
     highlight='\033[1;33m'
+    celebrate='\033[1;36m'
+    birthday="1978-02-27"
+    yyyy_bd=`date +%Y -d"$birthday"`
+    mm_bd=`date +%-m -d"$birthday"`
+    dd_bd=`date +%-d -d"$birthday"`
     month=("January" "February" "March" "April" "May" "June" "July" "August" "September" "October" "November" "December")
     (( mm = 0))
     (( ddN = 0 ))
+    msg=''
     calendar=''
     if [ "$2" == "" ]; then
         if [ "$1" == "" ]; then
@@ -35,6 +41,16 @@ function cal() {
             (( yyyy0 = 2000 + $1 ))
             (( mm = $2 - 1 ))
         fi
+    fi
+    (( age = $yyyy0 - $yyyy_bd))
+    if (( ${age[@]:(( ${#age} - 1)):1} == 1 )); then
+        ord='st'
+    elif (( ${age[@]:(( ${#age} - 1)):1} == 2 )); then
+        ord='nd'
+    elif (( ${age[@]:(( ${#age} - 1)):1} == 3 )); then
+        ord='rd'
+    else
+        ord='th'
     fi
     (( mm0 = $mm + 1 ))
     (( mm1 = $mm0 + 1 ))
@@ -69,6 +85,9 @@ function cal() {
                 fi
                 if [ `date +%-d` == $dd ] && (( `date +%-m` == $mm0 )) && (( `date +%Y` == $yyyy0 )); then
                     colour=$highlight
+                elif [ $d == $dd_bd ] && (( $mm_bd == $mm + 1 )); then
+                    colour=$celebrate
+                    msg=$celebrate'happy '$age$ord' birthday!'
                 else
                     colour='\033[0m'
                 fi
@@ -83,4 +102,5 @@ function cal() {
     echo -e "\n${padding0:${#month[mm]}} \033[0;32m${month[mm]} `date +%Y -d"$yyyy0-01-01"`"
     echo -e "\033[0;35mSu Mo Tu We Th Fi Sa\033[0m"
     echo -e "$calendar"
+    echo -e $msg
 }
