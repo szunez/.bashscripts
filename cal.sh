@@ -95,7 +95,7 @@ function cal() {
                 else
                     dd=$d' '
                 fi
-                if [ `date +%-d` == $dd ] && (( `date +%-m` == $mm0 )) && (( `date +%Y` == $yyyy0 )); then
+                if [ `date +%d` == $dd ] && (( `date +%-m` == $mm0 )) && (( `date +%Y` == $yyyy0 )); then
                     colour=$highlight
                 elif [ $d == $dd_bd ] && (( $mm_bd == $mm + 1 )); then
                     colour=$celebrate
