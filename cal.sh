@@ -12,6 +12,7 @@ function cal() {
         read -r usebd
     fi
     if [ "$usebd" == "n" ] || [ "$usebd" == "N" ]; then
+        echo -e "\nbirthday=9999-01-01" >> ~/.bashscripts/cal.config
         birthday="9999-01-01"
     elif [ "$usebd" == "y" ] || [ "$usebd" == "Y" ]; then
         echo -n "Great, what year were you born in? [yyyy]:"
