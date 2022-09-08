@@ -1,6 +1,10 @@
 function cal() {
     usebd=''
     (( i = 0 ))
+    if [ ! -e ~/.bashscripts/cal.config ]; then
+        touch ~/.bashscripts/cal.config
+        echo "### Configuration for cal.sh ###" > ~/.bashscripts/cal.config
+    fi
     source ~/.bashscripts/cal.config
     while read LINE; do (( i++ )); done < ~/.bashscripts/cal.config
     if [ "$birthday" == "" ]; then
