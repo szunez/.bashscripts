@@ -1,5 +1,24 @@
 function cal() {
-    birthday="1978-02-27" #configuration input your birthday here
+    usebd=''
+    (( i = 0 ))
+    source ~/.bashscripts/cal.config
+    while read LINE; do (( i++ )); done < ~/.bashscripts/cal.config
+    if [ "$birthday" == "" ]; then
+        echo -n "Would you like me to wish you happy birthday? [y/n]:"
+        read -r usebd
+    fi
+    if [ "$usebd" == "n" ] || [ "$usebd" == "N" ]; then
+        birthday="9999-01-01"
+    elif [ "$usebd" == "y" ] || [ "$usebd" == "Y" ]; then
+        echo -n "Great, what year were you born in? [yyyy]:"
+        read -r bdyyyy
+        echo -n "What month were you born in? [mm]:"
+        read -r bdmm
+        echo -n "What day were you born in? [dd]:"
+        read -r bddd
+        echo -e "\nbirthday=$bdyyyy-$bdmm-$bddd" >> ~/.bashscripts/cal.config
+        birthday=$bdyyyy'-'$bdmm'-'$bddd
+    fi
     highlight='\033[1;33m'
     celebrate='\033[1;36m'
     yyyy_bd=`date +%Y -d"$birthday"`
