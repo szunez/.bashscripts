@@ -18,18 +18,24 @@ function new() {
         gosales
         nproject=`getNumber`
         project=$nproject' '$2
-        mkdir "$project - flotools"
-        if [ "$4" != "" ]; then
-            UU=$4
-        elif [ "$3" != "" ] && [ "${UU+xxx}" == "xxx" ]; then
-            UU=$3
-        else
-            UU=1
-        fi
-        if [ "$3" == "--concurrent" ]; then
-            cp "$salesKitDir"/flotools/CCCC-template/"000NNN-0 CCCC - flotools UU perpetual concurrent license.docx" ./"$project"\ -\ flotools/"$nproject-0 $2 - flotools $UU perpetual concurrent license.docx"
-        else
-            cp "$salesKitDir"/flotools/CCCC-template//"000NNN-0 CCCC - flotools UU perpetual named license.docx" ./"$project"\ -\ flotools/"$nproject-0 $2 - flotools $UU perpetual named license.docx"
+        if [ "$3" == "" ]; then
+            product='flotools'
+            mkdir "$project - $product"
+            if [ "$4" != "" ]; then
+                UU=$4
+            elif [ "$3" != "" ] && [ "${UU+xxx}" == "xxx" ]; then
+                UU=$3
+            else
+                UU=1
+            fi
+            if [ "$3" == "--concurrent" ]; then
+                cp "$salesKitDir"/flotools/CCCC-template/"000NNN-0 CCCC - flotools UU perpetual concurrent license.docx" ./"$project"\ -\ flotools/"$nproject-0 $2 - flotools $UU perpetual concurrent license.docx"
+            else
+                cp "$salesKitDir"/flotools/CCCC-template//"000NNN-0 CCCC - flotools UU perpetual named license.docx" ./"$project"\ -\ flotools/"$nproject-0 $2 - flotools $UU perpetual named license.docx"
+            fi
+        elif [ "$3" != "" ]; then
+            product=$3
+            mkdir "$project - $product"
         fi
     elif [ "$1" == "--earlysale" ]; then
         gosales
