@@ -1,5 +1,9 @@
 #!/bin/bash
 function units(){
+    if [[ "$1" == "--help" ]] || [[ $1 == "-h" ]]; then
+        help_message
+        return
+    fi
     local value_source=$1
     local unit_source=$2
     local unit_target=$3
@@ -68,4 +72,22 @@ function convert_from_si(){
     local gain=${conversion[1]}
     local offset=${conversion[2]}
     awk -v value="$1" -v gain="$gain" -v offset="$offset" 'BEGIN {print (value - offset) / gain}'
+}
+function help_message(){
+    cat <<EOF
+Usage: <value> <source_unit> <target_unit>
+
+This script converts units of various physical quantities such as pressure, temperature, etc.
+
+Supported units:
+- Pressure: barg, bara, psia, psig, atm, kgf/cm2, Pa
+- Temperature: C, F, K
+- Time: s, sec, second, seconds, min, minute, minutes, h, hr, hour, hours, d, dy, day, days
+- Length: in, inch, ft, foot, mi, mile, mm, cm, m, km
+- Volume: USgal, gal, bbl, L, mL, ml, cc, cm3, ft3, cf, m3
+
+Examples:
+25 barg psia      # Convert 25 barg to psia
+100 F C           # Convert 100 Fahrenheit to Celsius
+EOF
 }
