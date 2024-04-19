@@ -58,6 +58,7 @@ function units(){
     local value_si=$(convert_to_si $value_source $unit_source)
     local value_target=$(convert_from_si $value_si $unit_target)
     echo "$value_target $unit_target"
+    `echo $value_target $unit_target | clip.exe`
 }
 function convert_to_si(){
     local key="$2"
