@@ -6,7 +6,8 @@ function calc () { awk "BEGIN{
 }
 function len () {
     echo ${#1}
-}function dt () {
+}
+function dt () {
     (( dtime=0 ))
     (( t1 = 0 ))
     if [ "$1" == "-0" ]; then
