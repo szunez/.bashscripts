@@ -101,3 +101,32 @@ function statusOlga() {
         echo -e "$unrun_base_names"
     fi
 }
+function renOlga (){
+    if [ "$#" -ne 2 ]; then
+        echo "Usage: $0 <existing_text> <replacement_text>"
+        exit 1
+    fi
+    existing_text="$1"
+    replacement_text="$2"
+    for file in *"$existing_text"*; do
+        new_name=$(echo "$file" | sed "s/$existing_text/$replacement_text/")
+        mv "$file" "$new_name"
+    done
+}
+function goP(){
+    targetDirPath=""
+    for arg in "$@"; do
+        if [[ "$arg" != "" ]]; then
+            targetDirPath+='*'$arg'*/'
+        fi
+    done
+    cd /p/$targetDirPath;explorer.exe .
+}
+function flowpad(){
+    app=~/AppData/Local/flowpad/app-1.2.1.646/flowpad.exe
+    "$app" "$@" &
+}
+function flotools(){
+    app=~/AppData/Local/evoleap/flotools/bin/flotools.exe
+    "$app" "$@" &
+}
