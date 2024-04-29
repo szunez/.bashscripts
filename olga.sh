@@ -90,16 +90,12 @@ function statusOlga() {
         fi
     done
 
-    # Print crashed cases
+    # Print job status
+    echo "Successfully ran $matched_base_names of $total_base_names cases."
     if [ ! -z "$crashed_base_names" ]; then
         echo "The following case(s) ran but either crashed or are still running:"
         echo -e "$crashed_base_names"
     fi
-
-    # Print job status
-    echo "Successfully ran $matched_base_names of $total_base_names cases."
-
-    # Print unrun cases
     if [ ! -z "$unrun_base_names" ]; then
         echo "The following cases did not successfully run:"
         echo -e "$unrun_base_names"
