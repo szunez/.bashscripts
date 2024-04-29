@@ -92,7 +92,7 @@ function statusOlga() {
 
     # Print crashed cases
     if [ ! -z "$crashed_base_names" ]; then
-        echo "The following case ran but either crashed or are still running:"
+        echo "The following case(s) ran but either crashed or are still running:"
         echo -e "$crashed_base_names"
     fi
 
