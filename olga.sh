@@ -130,3 +130,8 @@ function flotools(){
     app=~/AppData/Local/evoleap/flotools/bin/flotools.exe
     "$app" "$@" &
 }
+function yoOlga(){
+    lm_output=$(/c/Program\ Files\ \(x86\)/Schlumberger/Schlumberger\ Licensing/2021.1/lmutil.exe lmstat -a)
+    filtered_output=$(echo "$lm_output" | awk '/Users of/ && !/Total of 0 licenses in use/')
+    echo "$filtered_output"
+}
