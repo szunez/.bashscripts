@@ -67,6 +67,11 @@ function statusOlga() {
     crashed_base_names=""
     unrun_base_names=""
 
+    # Save the current IFS
+    OLD_IFS=$IFS
+    # Change IFS to newline
+    IFS=$'\n'
+
     # Iterate over each base filename
     for base_name in $all_base_names; do
         found=0
@@ -89,6 +94,9 @@ function statusOlga() {
             unrun_base_names+="$base_name\n"
         fi
     done
+
+    # Restore the original IFS
+    IFS=$OLD_IFS
 
     # Print job status
     echo "Successfully ran $matched_base_names of $total_base_names cases."
