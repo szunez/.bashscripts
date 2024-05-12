@@ -10,7 +10,7 @@ function goOlga () {
     read -p "Press any key to resume"
     cmd00='color 2A'
     cmd01='@echo off'
-        for (( j=0; j<=${#case[@]}; j++)) do
+        for (( j=0; j<${#case[@]}; j++)) do
             cmd02[j]='title "Running '$case' with '$vOLGA'"'
             cmd03[j]='call "'$pOLGA$vOLGA'" "'$case'"'
         done
@@ -27,8 +27,8 @@ function goOlga () {
     echo $cmd01 >> $name.bat
         j=0
         for (( j=0; j<=${#case[@]}; j++)) do
-            echo $cmd02 >> $name.bat
-            echo $cmd03 >> $name.bat	
+            echo $cmd02[j] >> $name.bat
+            echo $cmd03[j] >> $name.bat	
         done
     echo $cmd04 >> $name.bat
     echo $cmd05 >> $name.bat
