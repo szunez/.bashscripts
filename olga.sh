@@ -143,3 +143,6 @@ function yoOlga(){
     filtered_output=$(echo "$lm_output" | awk '/Users of/ && !/Total of 0 licenses in use/')
     echo "$filtered_output"
 }
+function wt (){
+    awk -v od="$1" -v id="$2" "BEGIN{ wt = (od - id) / 2; print wt }" | clip.exe
+}
