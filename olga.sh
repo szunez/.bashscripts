@@ -27,8 +27,8 @@ function goOlga () {
     echo $cmd01 >> $name.bat
         j=0
         for (( j=0; j<=${#case[@]}; j++)) do
-            echo $cmd02[j] >> $name.bat
-            echo $cmd03[j] >> $name.bat	
+            echo $cmd02 >> $name.bat
+            echo $cmd03 >> $name.bat	
         done
     echo $cmd04 >> $name.bat
     echo $cmd05 >> $name.bat
