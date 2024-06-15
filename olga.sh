@@ -2,39 +2,39 @@ function goOlga () {
     #**********************************************************************************
     #  D  E  F  I  N  I  T  I  O  N  S
     #**********************************************************************************
-    case=$(ls $1)
-    vOLGA=OLGA-2024.1.1.exe
-    pOLGA='C:\Program Files\Schlumberger\OLGA 2024.1.1\OlgaExecutables\'
-    name=${#case[@]}
-    echo $case
-    read -p "Press any key to resume"
-    cmd00='color 2A'
-    cmd01='@echo off'
-        for (( j=0; j<${#case[@]}; j++)) do
-            cmd02[j]='title "Running '$case' with '$vOLGA'"'
-            cmd03[j]='call "'$pOLGA$vOLGA'" "'$case'"'
-        done
-    cmd04='title "Finished '$name'"'
-    cmd05='color 47'
-    cmd06='pause'
-    cmd07='exit'
+    # case=$(ls $1)
+        # vOLGA="OLGA-2024.1.1.exe"
+        # pOLGA="C:\Program Files\Schlumberger\OLGA 2024.1.1\OlgaExecutables\"
+    # name=${#case[@]}
+    # echo $case
+    # read -p "Press any key to resume"
+    # cmd00='color 2A'
+    # cmd01='@echo off'
+    #     for (( j=0; j<=${#case[@]}; j++)) do
+    #         cmd02[j]='title "Running '$case' with '$vOLGA'"'
+    #         cmd03[j]='call "'$pOLGA$vOLGA'" "'$case'"'
+    #     done
+    # cmd04='title "Finished '$name'"'
+    # cmd05='color 47'
+    # cmd06='pause'
+    # cmd07='exit'
     #**********************************************************************************
     #  P  R  O  G  R  A  M  M  E
     #**********************************************************************************
-    #rm $name.bat
-    Touch $name.bat
-    echo $cmd00 >> $name.bat
-    echo $cmd01 >> $name.bat
-        j=0
-        for (( j=0; j<=${#case[@]}; j++)) do
-            echo $cmd02 >> $name.bat
-            echo $cmd03 >> $name.bat	
-        done
-    echo $cmd04 >> $name.bat
-    echo $cmd05 >> $name.bat
-    echo $cmd06 >> $name.bat
-    echo $cmd07 >> $name.bat
-    start $name.bat
+    # rm $name.bat
+    # Touch $name.bat
+    # echo $cmd00 >> $name.bat
+    # echo $cmd01 >> $name.bat
+    #     j=0
+    #     for (( j=0; j<=${#case[@]}; j++)) do
+    #         echo $cmd02 >> $name.bat
+    #         echo $cmd03 >> $name.bat	
+    #     done
+    # echo $cmd04 >> $name.bat
+    # echo $cmd05 >> $name.bat
+    # echo $cmd06 >> $name.bat
+    # echo $cmd07 >> $name.bat
+    # start $name.bat
     #**********************************************************************************
     #  D  E  B  U  G     C  O  D  E
     #**********************************************************************************
@@ -47,6 +47,19 @@ function goOlga () {
     #**********************************************************************************
     #  E  N  D     E  X  E  C  U  T  I  O  N
     #**********************************************************************************
+    vOLGA="OLGA-2024.1.1.exe"
+    pOLGA="C:\\Program Files\\Schlumberger\\OLGA 2024.1.1\\OlgaExecutables\\"
+    echo "@echo off" > _run.bat
+    echo "color 2A" >> _run.bat
+    for arg in "$@"; do
+        echo "title Running $arg with $vOLGA" >> _run.bat
+        echo "call \"$pOLGA$vOLGA\" \"$arg\"" >> _run.bat
+    done
+    echo "color 47" >> _run.bat
+    echo "pause" >> _run.bat
+    echo "exit" >> _run.bat
+    read -p "Press [Enter] key to run now..."
+    tput sgr0  # Reset text attributes
 }
 function statusOlga() {
     # Define the file extensions to check for
