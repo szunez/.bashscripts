@@ -159,3 +159,21 @@ function yoOlga(){
 function wt (){
     awk -v od="$1" -v id="$2" "BEGIN{ wt = (od - id) / 2; print wt }" | clip.exe
 }
+function catdat(){
+    input_directory=$1  # Directory containing the .pts files
+    output_directory=$2 # Directory for the output file
+    file_type=$3        # File extension/type to concatenate
+
+    # Define the full output file path
+    output_file="$output_directory/data_concatenated.$file_type"
+
+    # Clear the output file if it already exists
+    > "$output_file"
+
+    # Loop through each file with the specified extension in the input directory
+    for file in "$input_directory"/*.$file_type; do
+        cat "$file" >> "$output_file"
+    done
+
+    echo "Data from all .$file_type files has been concatenated into $output_file"
+}

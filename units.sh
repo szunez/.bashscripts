@@ -3,6 +3,9 @@ function units(){
     if [[ "$1" == "--help" ]] || [[ $1 == "-h" ]]; then
         help_message
         return
+    elif [[ "$2" == "api" ]]; then
+        sg_to_api
+        return
     fi
     local value_source=$1
     local unit_source=$2
@@ -18,6 +21,7 @@ function units(){
         ["C"]="C 1 273.15"
         ["F"]="F 0.555556 255.372222"
         ["K"]="K 1 0"
+        ["R"]="R 0.555556 0"
         ["s"]="s 1 0"
         ["sec"]="s 1 0"
         ["second"]="s 1 0"
@@ -54,6 +58,8 @@ function units(){
         ["ft3"]="ft3 0.02831685 0"
         ["cf"]="ft3 0.02831685 0"
         ["m3"]="m3 1 0"
+        ["g/cm3"]="kg/m3 1000 0"
+        ["kg/m3"]="g/cm3 0.001 0"
     )
     local value_si=$(convert_to_si $value_source $unit_source)
     local value_target=$(convert_from_si $value_si $unit_target)
@@ -73,6 +79,10 @@ function convert_from_si(){
     local gain=${conversion[1]}
     local offset=${conversion[2]}
     awk -v value="$1" -v gain="$gain" -v offset="$offset" 'BEGIN {print (value - offset) / gain}'
+}
+function sg_to_api(){
+    local api="$1"
+    awk -v value="$api" 'BEGIN {print 141.5 / (131.5 + value)}'
 }
 function help_message(){
     cat <<EOF
