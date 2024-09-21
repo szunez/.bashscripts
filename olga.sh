@@ -177,3 +177,26 @@ function catdat(){
 
     echo "Data from all .$file_type files has been concatenated into $output_file"
 }
+updateOlga() {
+    # Example usage:
+    # updateOlga INTEGRATION MINDT 1 0.1
+    # updateOlga INTEGRATION MINDT 1 0.1 wc-10
+    # Check if at least four arguments are passed (top-level keyword, property, starting value, final value)
+  keyword=$1
+  property=$2
+  start_value=$3
+  final_value=$4
+  pattern=${5:-'*'}  # If no pattern is specified, default to '*'
+
+  # Loop over all .key files that match the provided pattern or all .key files if no pattern
+  for file in ./*$pattern*.key; do
+    # Check if the file exists
+    if [ -f "$file" ]; then
+      echo "Processing file: $file"
+
+      # Use sed to find the keyword block and replace the specific property within it
+      sed -i "/$keyword/s/${property}=${start_value} s/${property}=${final_value} s/g" "$file"
+      echo "Replaced ${property}=${start_value} s with ${property}=${final_value} s in $file (scoped to $keyword)"
+    fi
+  done
+}
