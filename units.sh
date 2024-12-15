@@ -61,13 +61,15 @@ function units(){
         ["g/cm3"]="kg/m3 1000 0"
         ["kg/m3"]="g/cm3 0.001 0"
         ["kg"]="kg 1 0"
-        ["g"]="kg 1000 0"
-        ["mg"]="kg 1000000 0"
+        ["g"]="kg 0.001 0"
+        ["mg"]="kg 0.000001 0"
         ["lbs"]="kg 0.45359237 0"
-        ["tonne"]="kg 0.001 0"
-        ["ton"]="kg 0.00110231131 0"
-        ["slug"]="kg 0.0685217659 0"
-        ["kip"]="kg 0.0022046226 0"
+        ["oz"]="kg 0.0283495231 0"
+        ["tonne"]="kg 1000 0"
+        ["ton"]="kg 907.18474 0"
+        ["slug"]="kg 14.593902937 0"
+        ["kip"]="kg 453.59237 0"
+        ["stone"]="kg 6.35029318 0"
     )
     local value_si=$(convert_to_si $value_source $unit_source)
     local value_target=$(convert_from_si $value_si $unit_target)
