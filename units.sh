@@ -60,6 +60,8 @@ function units(){
         ["m3"]="m3 1 0"
         ["g/cm3"]="kg/m3 1000 0"
         ["kg/m3"]="g/cm3 0.001 0"
+        ["kg"]="kg 1 0"
+        ["lbs"]="kg 0.45359237 0"
     )
     local value_si=$(convert_to_si $value_source $unit_source)
     local value_target=$(convert_from_si $value_si $unit_target)

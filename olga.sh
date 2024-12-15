@@ -53,7 +53,7 @@ function goOlga () {
     echo "color 2A" >> _run.bat
     for arg in "$@"; do
         echo "title Running $arg with $vOLGA" >> _run.bat
-        echo "call \"$pOLGA$vOLGA\" \"$arg\"" >> _run.bat
+        echo "call \"$pOLGA$vOLGA\" -nthreads 32 \"$arg\"" >> _run.bat
     done
     echo "color 47" >> _run.bat
     echo "pause" >> _run.bat
@@ -199,4 +199,7 @@ updateOlga() {
       echo "Replaced ${property}=${start_value} s with ${property}=${final_value} s in $file (scoped to $keyword)"
     fi
   done
+}
+function okOlga() {
+    /c/Program\ Files/Schlumberger/OLGA\ 2024.1.1/OlgaExecutables/OLGA-2024.1.1.exe -exitRC $1
 }
