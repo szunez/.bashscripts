@@ -4,7 +4,10 @@ function units(){
         help_message
         return
     elif [[ "$2" == "api" ]]; then
-        sg_to_api
+        sg_to_api "$1"
+        return
+    elif [[ "$2" == "sg" ]]; then
+        api_to_sg "$1"
         return
     fi
     local value_source=$1
@@ -92,7 +95,13 @@ function convert_from_si(){
 }
 function sg_to_api(){
     local api="$1"
-    awk -v value="$api" 'BEGIN {print 141.5 / (131.5 + value)}'
+    local sg=$(awk -v value="$api" 'BEGIN {print 141.5 / (131.5 + value)}')
+    echo "$sg g/cm²"
+}
+function api_to_sg(){
+    local sg="$1"
+    local api=$(awk -v value="$sg" 'BEGIN {print (141.5 / value) - 131.5}')
+    echo "$api api-gravity"
 }
 function help_message(){
     cat <<EOF
