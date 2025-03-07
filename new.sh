@@ -48,6 +48,13 @@ function new() {
         cd early\ stage
         project=`date +%Y`'-'`date +%m`'-'`date +%d`' '$2
         mkdir "$project"
+    elif [ "$1" == "--project" ]; then
+        mkdir /p/"$2"
+        7z x /p/TMPL\ -\ Project\ Directory\ Flow\ Assurance.zip -o/p/"$2"
+        cd /p/"$2"
+        mv ./TMPL\ -\ Project\ Directory\ Flow\ Assurance/* .
+        rm -rf ./TMPL\ -\ Project\ Directory\ Flow\ Assurance
+        cp $USERPROFILE/Evoleap\,\ LLC/Consulting\ -\ Documents/6\ Templates/05\ Project\ OneNote/TMPL\ -\ Consulting\ Project\ OneNote\ rev\ B.onepkg /p/"$2"/1\ Admin/
     else
         echo 'Please specify a --demo, --license, --sale, --earlysale, --client, --meeting, etc.'
     fi
