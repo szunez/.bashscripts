@@ -96,7 +96,7 @@ function convert_from_si(){
 function sg_to_api(){
     local api="$1"
     local sg=$(awk -v value="$api" 'BEGIN {print 141.5 / (131.5 + value)}')
-    echo "$sg g/cm²"
+    echo "$sg g/cm³"
 }
 function api_to_sg(){
     local sg="$1"
