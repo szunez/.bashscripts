@@ -37,3 +37,9 @@ function cp+ () {
     fi
     $(echo $preamble', '$1 | clip.exe)
 }
+function d2a () {
+    dirs=()
+    for dir in ./*/; do
+        [ -d "$dir" ] && dirs+=("$(basename "$dir")")
+    done
+}
