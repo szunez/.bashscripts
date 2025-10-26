@@ -39,7 +39,9 @@ function cp+ () {
 }
 function d2a () {
     dirs=()
-    for dir in ./*/; do
+    for dir in ./*$1*/; do
         [ -d "$dir" ] && dirs+=("$(basename "$dir")")
     done
+    echo "The following folders have been stored in an array named \"dirs\":"
+    printf '    %s\n' "${dirs[@]}"
 }
