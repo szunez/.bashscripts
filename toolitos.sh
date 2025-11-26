@@ -165,3 +165,39 @@ function cpdir () {
         done
     fi
 }
+
+box() {
+    local text=""
+    local width=0
+
+    while (( $# )); do
+        case "$1" in
+            -w|--width)  width=$2; shift 2 ;;
+            --width=*)   width=${1#*=}; shift ;;
+            -w*)         width=${1#-w}; shift ;;
+            *)           text="$1"; shift ;;
+        esac
+    done
+
+    [[ -z "$text" ]] && { echo "Usage: box [-w N] <text>"; return 1; }
+
+    # Visible length (strip ANSI codes)
+    local visible=$(printf '%b' "$text" | sed -E 's/\x1B\[[0-9;]*[mK]//g')
+    local len=${#visible}
+
+    # Final outer width
+    (( width < len + 8 )) && width=$((len + 8))
+    (( width <= 0 )) && width=$((len + 8))
+
+    # Space available *inside* the box (between the two │)
+    local inside=$(( width - 4 ))
+
+    local left=$(( (inside - len) / 2 ))
+    local right=$(( inside - len - left ))
+
+    local line=$(printf '─%.0s' $(seq 1 $inside))
+
+    printf '┌─%s─┐\n' "$line"
+    printf '│ %*s%b%*s │\n' "$left" "" "$text" "$right" ""
+    printf '└─%s─┘\n' "$line"
+}
