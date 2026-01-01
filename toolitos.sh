@@ -2,6 +2,7 @@
 function calc () { awk "BEGIN{ 
     pi = 3.141592653589793
     e = 2.718281828459045
+    g = 9.80665
     print $* }" ;
 }
 function len () {
