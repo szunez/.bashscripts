@@ -201,5 +201,23 @@ updateOlga() {
   done
 }
 function okOlga() {
-    /c/Program\ Files/Schlumberger/OLGA\ 2026.1.0/OlgaExecutables/OLGA-2026.1.0.exe -exitRC $1
+    vOLGA="2026.1.0"
+    while [[ $# -gt 0 ]]; do
+        case $1 in
+            --version|-v)
+                vOLGA="$2"
+                shift 2
+                ;;
+            --help|-h)
+                echo "Usage: $0 [-v OLGA-yyyy.a.b] [--verbose]"
+                exit 0
+                ;;
+            *)
+                # If it's not a flag → treat as positional argument
+                positional+=("$1")
+                shift
+                ;;
+        esac
+    done
+    /c/Program\ Files/Schlumberger/OLGA\ $vOLGA/OlgaExecutables/OLGA-$vOLGA.exe -exitRC $1
 }
