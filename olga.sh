@@ -201,5 +201,5 @@ updateOlga() {
   done
 }
 function okOlga() {
-    /c/Program\ Files/Schlumberger/OLGA\ 2024.1.1/OlgaExecutables/OLGA-2024.1.1.exe -exitRC $1
+    /c/Program\ Files/Schlumberger/OLGA\ 2026.1.0/OlgaExecutables/OLGA-2026.1.0.exe -exitRC $1
 }

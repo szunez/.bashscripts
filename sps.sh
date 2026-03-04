@@ -1,0 +1,21 @@
+#!/bin/bash
+function mkSps() {
+    mkdir '1 Admin'
+    mkdir '1 Admin/OneNote'
+    mkdir '2 Client data'
+    mkdir '3 Calculations'
+    mkdir '4 Simulations'
+    mkdir '4 Simulations/Rev1'
+    mkdir '4 Simulations/Rev1/_base'
+    mkdir '4 Simulations/Rev1/_base/_dummy'
+    mkdir '4 Simulations/Rev1/ark'
+    mkdir '4 Simulations/Rev1/dsp'
+    mkdir '4 Simulations/Rev1/dspx'
+    mkdir '4 Simulations/Rev1/inc'
+    mkdir '4 Simulations/Rev1/simp'
+    mkdir '4 Simulations/Rev1/steady state'
+    mkdir '4 Simulations/Rev1/svwx'
+    mkdir '4 Simulations/Rev1/transients'
+    mkdir '5 Workspaces'
+    mkdir '6 Deliverables'
+}
