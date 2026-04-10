@@ -200,24 +200,23 @@ updateOlga() {
     fi
   done
 }
-function okOlga() {
-    vOLGA="2026.1.0"
-    while [[ $# -gt 0 ]]; do
+okOlga() {
+    vOLGA="2022.1.0"
+    exePath="/c/Program Files/Schlumberger/OLGA $vOLGA/OlgaExecutables/OLGA-$vOLGA.exe"
+
+    while [ $# -gt 0 ]; do
         case $1 in
-            --version|-v)
-                vOLGA="$2"
-                shift 2
-                ;;
+            --version|-v) vOLGA="$2"; shift 2 ;;
             --help|-h)
-                echo "Usage: $0 [-v OLGA-yyyy.a.b] [--verbose]"
-                exit 0
+                echo "Usage: okOlga [-v|--version OLGA-yyyy.a.b]"
+                return
                 ;;
-            *)
-                # If it's not a flag → treat as positional argument
-                positional+=("$1")
-                shift
-                ;;
+            *) break ;;
         esac
     done
-    /c/Program\ Files/Schlumberger/OLGA\ $vOLGA/OlgaExecutables/OLGA-$vOLGA.exe -exitRC $1
+
+    exePath="/c/Program Files/Schlumberger/OLGA $vOLGA/OlgaExecutables/OLGA-$vOLGA.exe"
+
+    "$exePath" -exitRC "$1"
+    echo "exePath: $exePath $1"
 }

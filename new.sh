@@ -50,7 +50,8 @@ function new() {
         mkdir "$project"
     elif [ "$1" == "--project" ]; then
         mkdir /p/"$2"
-        7z x /p/TMPL\ -\ Project\ Directory\ Flow\ Assurance.zip -o/p/"$2"
+        # 7z x /p/TMPL\ -\ Project\ Directory\ Flow\ Assurance.zip -o/p/"$2"
+        7z x ~/Evoleap,\ LLC/Consulting\ -\ Documents/6\ Templates/01\ Project\ Directory\ Template/TMPL\ -\ Project\ Directory\ Flow\ Assurance.zip -o/p/"$2"
         cd /p/"$2"
         mv ./TMPL\ -\ Project\ Directory\ Flow\ Assurance/* .
         rm -rf ./TMPL\ -\ Project\ Directory\ Flow\ Assurance
